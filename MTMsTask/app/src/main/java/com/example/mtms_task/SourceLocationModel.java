@@ -1,16 +1,16 @@
 package com.example.mtms_task;
 
-public class LocationModel {
+public class SourceLocationModel {
 
     private String name;
     private double latitude;
     private double longitude;
 
-    public LocationModel(String name){
+    public SourceLocationModel(String name){
         this.name = name;
     }
 
-    public LocationModel(String name, double latitude, double longitude) {
+    public SourceLocationModel(String name, double latitude, double longitude) {
         this.name = name;
         this.latitude = latitude;
         this.longitude = longitude;

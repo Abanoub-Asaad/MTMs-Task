@@ -16,8 +16,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionDeniedResponse;
@@ -36,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+        if(ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             startActivity(new Intent(MainActivity.this, MapActivity.class));
             finish();
             return;
@@ -57,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
 
                             @Override
                             public void onPermissionDenied(PermissionDeniedResponse permissionDeniedResponse) {
-                                if (permissionDeniedResponse.isPermanentlyDenied()) {
+                                if(permissionDeniedResponse.isPermanentlyDenied()) {
                                     AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                                     builder.setTitle("Permission Denied")
                                             .setMessage("Permission to access device location is permanently denied. you need to go to settings to allow the permission")
@@ -70,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
                                                     intent.setData(Uri.fromParts("package", getPackageName(), null));
                                                 }
                                             }).show();
-                                } else {
+                                }else {
                                     Toast.makeText(MainActivity.this, "Permission Denied", Toast.LENGTH_SHORT).show();
                                 }
                             }
