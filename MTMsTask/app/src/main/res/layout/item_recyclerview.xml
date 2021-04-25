@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="65dp"
+    android:layout_height="50dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardElevation="8dp">
+    app:cardElevation="8dp"
+    android:layout_marginTop="1dp">
 
     <TextView
         android:id="@+id/txtView_sourceLocation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Location "
-        android:textSize="25sp"
+        android:textSize="18sp"
         android:layout_gravity="center_vertical"
         android:layout_margin="10dp"
         android:textColor="@color/black"/>

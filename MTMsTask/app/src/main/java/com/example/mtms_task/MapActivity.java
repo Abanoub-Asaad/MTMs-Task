@@ -16,6 +16,8 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +28,7 @@ public class MapActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView_sourceLocation;
     private TextView textView_sourceLocation, textView_destination;
+    private EditText editText_sourceLocation;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference sourceRef = db.collection("Source");
     private SourceLocationAdapter sourceLocationAdapter;
@@ -36,6 +39,25 @@ public class MapActivity extends AppCompatActivity {
         setContentView(R.layout.activity_map);
 
         setUpRecyclerView();
+
+        editText_sourceLocation = findViewById(R.id.edtxt_sourceLocation);
+        editText_sourceLocation.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                recyclerView_sourceLocation.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
     }
 
     private void setUpRecyclerView() {

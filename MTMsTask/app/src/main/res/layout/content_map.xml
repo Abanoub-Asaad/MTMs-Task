@@ -22,7 +22,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
-        android:layout_margin="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:background="@color/gray">
 
         <ImageView
@@ -63,19 +64,22 @@
     </RelativeLayout>
 
     <Button
+        android:id="@+id/btn_reqeuest_rd"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:text="request rd"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:textSize="20sp"
         android:textStyle="bold"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView_sourceLocations"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@+id/btn_reqeuest_rd"
         android:layout_below="@+id/relativeLayout_topView"
-        android:visibility="visible"/>
+        android:visibility="invisible"/>
 
 </RelativeLayout>
