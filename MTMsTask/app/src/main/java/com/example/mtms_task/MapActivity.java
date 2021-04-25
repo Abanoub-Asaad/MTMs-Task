@@ -8,6 +8,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,40 +25,40 @@ import android.widget.TextView;
 public class MapActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView_sourceLocation;
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private TextView textView_sourceLocation, textView_destination;
-    private CollectionReference collectionReference = db.collection("Source");
-    private FirestoreRecyclerOptions<SourceLocationModel> options;
-    private FirestoreRecyclerAdapter<SourceLocationModel, LocationsViewHolder> adapter;
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private CollectionReference sourceRef = db.collection("Source");
+    private SourceLocationAdapter sourceLocationAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
 
-        recyclerView_sourceLocation = findViewById(R.id.recyclerView_sourceLocations);
-        recyclerView_sourceLocation.setHasFixedSize(true);
-        recyclerView_sourceLocation.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-
-        readData();
+        setUpRecyclerView();
     }
 
-    private void readData() {
-        options = new FirestoreRecyclerOptions.Builder<SourceLocationModel>().setQuery(collectionReference, SourceLocationModel.class).build();
-        adapter = new FirestoreRecyclerAdapter<SourceLocationModel, LocationsViewHolder>(options) {
-            @Override
-            protected void onBindViewHolder(@NonNull LocationsViewHolder holder, int position, @NonNull SourceLocationModel model) {
-                holder.NAME.setText(model.getName());
-            }
+    private void setUpRecyclerView() {
+        Query query = sourceRef;
+        FirestoreRecyclerOptions<SourceLocationModel> options = new FirestoreRecyclerOptions.Builder<SourceLocationModel>()
+                .setQuery(query, SourceLocationModel.class)
+                .build();
+        sourceLocationAdapter = new SourceLocationAdapter(options);
+        recyclerView_sourceLocation = findViewById(R.id.recyclerView_sourceLocations);
+        recyclerView_sourceLocation.setHasFixedSize(true);
+        recyclerView_sourceLocation.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView_sourceLocation.setAdapter(sourceLocationAdapter);
+    }
 
-            @NonNull
-            @Override
-            public LocationsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_recyclerview, parent, false);
-                return new LocationsViewHolder(view);
-            }
-        };
-        //adapter.startListening();
-        recyclerView_sourceLocation.setAdapter(adapter);
+    @Override
+    protected void onStart() {
+        super.onStart();
+        sourceLocationAdapter.startListening();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        sourceLocationAdapter.stopListening();
     }
 }

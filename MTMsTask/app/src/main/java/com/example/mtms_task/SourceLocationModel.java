@@ -6,6 +6,9 @@ public class SourceLocationModel {
     private double latitude;
     private double longitude;
 
+    public SourceLocationModel() {
+    }
+
     public SourceLocationModel(String name){
         this.name = name;
     }
